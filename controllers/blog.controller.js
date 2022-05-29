@@ -12,5 +12,7 @@ router.get('/search', crudController(blogSchema).getBlogByAuthorAndTitle);
 
 router.get('/id', crudController(blogSchema).getBlogById);
 
+router.patch('/update', crudController(blogSchema).likeBlog);
+
 module.exports = router;
 

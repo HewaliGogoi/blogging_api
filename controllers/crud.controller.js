@@ -53,11 +53,30 @@ const getBlogById = (model) => {
     }
 }
 
+// Ability to like a blog
+
+const likeBlog = (model) => {
+    return async(req, res) => {
+        try {
+           let item = await model.findOne({"id" : req.body.id}).lean().exec();
+        //    console.log(item.likes)
+           item.likes = item.likes + 1;
+           let updated_like = await model.updateOne(
+               {"id" : req.body.id},
+               {$set : item})
+           return res.send(updated_like);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 module.exports = (model) => {
     return {
         postBlog : postBlog(model),
         getBlogByPopularity : getBlogByPopularity(model),
         getBlogByAuthorAndTitle : getBlogByAuthorAndTitle(model),
-        getBlogById : getBlogById(model)
+        getBlogById : getBlogById(model),
+        likeBlog : likeBlog(model),
     }
 };
