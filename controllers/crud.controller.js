@@ -14,7 +14,7 @@ const postBlog = (model) => {
 
 //Ability to list all blogs by popularity
 
-const getBlog = (model) => {
+const getBlogByPopularity = (model) => {
     return async(req, res) => {
         try {
            let item = await model.find({}).sort({"likes" : -1});
@@ -25,9 +25,24 @@ const getBlog = (model) => {
     }
 }
 
+//Ability to search blogs based on author and title
+
+const getBlogByAuthorAndTitle = (model) => {
+    return async(req, res) => {
+        try {
+           let item = await model.find({});
+           item = item.filter((ele) => req.body.author?  ele.author == req.body.author : ele.title == req.body.title);
+           return res.send(item);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 module.exports = (model) => {
     return {
         postBlog : postBlog(model),
-        getBlog : getBlog(model)
+        getBlogByPopularity : getBlogByPopularity(model),
+        getBlogByAuthorAndTitle : getBlogByAuthorAndTitle(model)
     }
 };

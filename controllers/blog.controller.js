@@ -6,7 +6,9 @@ const crudController = require('./crud.controller');
 
 router.post('/', crudController(blogSchema).postBlog);
 
-router.get('/popularity', crudController(blogSchema).getBlog);
+router.get('/popularity', crudController(blogSchema).getBlogByPopularity);
+
+router.get('/search', crudController(blogSchema).getBlogByAuthorAndTitle);
 
 module.exports = router;
 
