@@ -6,5 +6,7 @@ const crudController = require('./crud.controller');
 
 router.post('/', crudController(blogSchema).postBlog);
 
+router.get('/popularity', crudController(blogSchema).getBlog);
+
 module.exports = router;
 
