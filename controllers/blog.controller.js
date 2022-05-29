@@ -10,5 +10,7 @@ router.get('/popularity', crudController(blogSchema).getBlogByPopularity);
 
 router.get('/search', crudController(blogSchema).getBlogByAuthorAndTitle);
 
+router.get('/id', crudController(blogSchema).getBlogById);
+
 module.exports = router;
 

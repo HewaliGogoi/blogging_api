@@ -39,10 +39,25 @@ const getBlogByAuthorAndTitle = (model) => {
     }
 }
 
+//Ability to view a blog
+
+const getBlogById = (model) => {
+    return async(req, res) => {
+        try {
+           let item = await model.find({});
+           item = item.filter((ele) => ele.id == req.body.id);
+           return res.send(item);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 module.exports = (model) => {
     return {
         postBlog : postBlog(model),
         getBlogByPopularity : getBlogByPopularity(model),
-        getBlogByAuthorAndTitle : getBlogByAuthorAndTitle(model)
+        getBlogByAuthorAndTitle : getBlogByAuthorAndTitle(model),
+        getBlogById : getBlogById(model)
     }
 };
